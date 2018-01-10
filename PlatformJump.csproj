@@ -311,7 +311,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\ButtonController.cs" />
     <Compile Include="Assets\Scripts\DieScript.cs" />
-    <Compile Include="Assets\Scripts\MovePlatform.cs" />
+    <Compile Include="Assets\Scripts\MovingPlatformContainer.cs" />
     <Compile Include="Assets\Scripts\PlayerAdditionController.cs" />
     <Compile Include="Assets\Scripts\PortalManager.cs" />
   </ItemGroup>

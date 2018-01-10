@@ -7,28 +7,27 @@ public class PlayerAdditionController : MonoBehaviour
 {
     public GameObject PortalOrangeGameObject;
     public GameObject PortalGreenGameObject;
-    public bool is2Portals;
+    
+    private bool _is2Portals;
     
 	void Update ()
 	{
 	    if (PortalOrangeGameObject.activeInHierarchy && PortalGreenGameObject.activeInHierarchy)
-	        is2Portals = true;
+	        _is2Portals = true;
 
 	    else
-	        is2Portals = false;
+	        _is2Portals = false;
 	}
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == PortalOrangeGameObject && is2Portals)
+        if (other.gameObject == PortalOrangeGameObject && _is2Portals)
         {
-            gameObject.transform.position = PortalGreenGameObject.transform.position;
-            RigidbodyFirstPersonController fpsController = new RigidbodyFirstPersonController();
-            
-//Реализовать правильный поворот
-
+            gameObject.transform.position = PortalGreenGameObject.transform.position + PortalGreenGameObject.transform.forward * -2;
+        }
+        else if (other.gameObject == PortalGreenGameObject && _is2Portals)
+        {
+            gameObject.transform.position = PortalOrangeGameObject.transform.position + PortalOrangeGameObject.transform.forward * 2;
         }
     }
-
-
 }
