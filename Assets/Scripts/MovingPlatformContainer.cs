@@ -7,10 +7,13 @@ public class MovingPlatformContainer : MonoBehaviour
 
 	void Update ()
 	{
-	    transform.position = new Vector3(0, transform.position.y, transform.position.z + Speed);
+        
+	    transform.Translate(new Vector3(0, 0, Speed * Time.deltaTime));
 	    if (transform.position.z >= 10f)
+	    {
 	        Speed = -Speed;
-        else if (transform.position.z <= -10f)
+	    }
+	    else if (transform.position.z <= -10f)
 	    {
 	        Speed = -Speed;
 	    }

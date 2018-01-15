@@ -313,7 +313,8 @@
     <Compile Include="Assets\Scripts\DieScript.cs" />
     <Compile Include="Assets\Scripts\MovingPlatformContainer.cs" />
     <Compile Include="Assets\Scripts\PlayerAdditionController.cs" />
-    <Compile Include="Assets\Scripts\PortalManager.cs" />
+    <Compile Include="Assets\Scripts\PrefabScript.cs" />
+    <Compile Include="Assets\Scripts\ShootManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />

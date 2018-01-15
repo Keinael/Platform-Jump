@@ -12,11 +12,14 @@ public class PlayerAdditionController : MonoBehaviour
     
 	void Update ()
 	{
+	    
 	    if (PortalOrangeGameObject.activeInHierarchy && PortalGreenGameObject.activeInHierarchy)
 	        _is2Portals = true;
 
 	    else
 	        _is2Portals = false;
+        
+    
 	}
 
     private void OnTriggerEnter(Collider other)
@@ -29,5 +32,10 @@ public class PlayerAdditionController : MonoBehaviour
         {
             gameObject.transform.position = PortalOrangeGameObject.transform.position + PortalOrangeGameObject.transform.forward * 2;
         }
-    }
+        else if (other.gameObject.CompareTag("Rope") && Input.GetKey(KeyCode.C))
+        {
+            Debug.Log("sdfsdf");
+            gameObject.AddComponent<FixedJoint>().connectedBody = other.GetComponent<Rigidbody>();
+        }
+    }  
 }
