@@ -1,28 +1,26 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ShootManager : MonoBehaviour
 {
-    public Camera MainCamera;
-    public GameObject PortalOrangeGameObject;
-    public GameObject PortalGreenGameObject;
-    public List<GameObject> RopeUnitsGameObjects;
-    public GameObject RopePrefabGameObject;
     public RaycastHit Hit;
-    public Ray Ray;
+    public List<GameObject> RopeUnitsGameObjects;
 
-
+    [SerializeField] private Camera MainCamera;
+    [SerializeField] private GameObject PortalOrangeGameObject;
+    [SerializeField] private GameObject PortalGreenGameObject;
+    [SerializeField] private GameObject RopePrefabGameObject;
+    
     void Start()
     {
         RopeUnitsGameObjects = new List<GameObject>();
     }
 
-	void Update () 
+	void Update ()
 	{
-	    Ray = new Ray(MainCamera.transform.position, MainCamera.transform.forward * 50);
-	    Physics.Raycast(Ray, out Hit);
+	    var ray = new Ray(MainCamera.transform.position, MainCamera.transform.forward * 50);
+	    Physics.Raycast(ray, out Hit);
         
 	    if (Input.GetMouseButtonDown(0))
 	    {
@@ -37,9 +35,9 @@ public class ShootManager : MonoBehaviour
 	            PortalOrangeGameObject.transform.parent = Hit.transform;
 	        }
 	    }
+
 	    if (Input.GetMouseButtonDown(1))
 	    {
-	        
 	        if (Hit.transform.gameObject.tag == "Portal")
 	        {
 	            if (!PortalGreenGameObject.activeInHierarchy)
@@ -51,27 +49,22 @@ public class ShootManager : MonoBehaviour
 	            PortalGreenGameObject.transform.parent = Hit.transform;
 	        }
 	    }
-        if (Input.GetKeyDown(KeyCode.E))
+
+        if (Input.GetKeyDown(KeyCode.R) && Hit.collider.gameObject.tag == "Portal")
         {
-            
-            for (int i = 0; i < RopeUnitsGameObjects.Count - 1; i++)
+            var prefabScaleY = RopePrefabGameObject.GetComponent<Transform>().lossyScale.y;
+            var CountUnits = Convert.ToInt16((Hit.distance / prefabScaleY)/2.2);
+
+            for (int i = 0; i < RopeUnitsGameObjects.Count; i++)
             {
                 Destroy(RopeUnitsGameObjects[i]);
             }
-            
             RopeUnitsGameObjects.RemoveRange(0, RopeUnitsGameObjects.Count);
-
-	        var CountUnits = Convert.ToInt16((Hit.distance / RopePrefabGameObject.GetComponent<Transform>().lossyScale.y)/2.2);
-	        Debug.Log("Дистанция: " + Hit.distance);
-	        Debug.Log("Элементов: " + CountUnits);
             
 	        for (int i = CountUnits; i >= 2; i--)
 	        {
-	            RopeUnitsGameObjects.Add(Instantiate(RopePrefabGameObject, Ray.GetPoint(i * RopePrefabGameObject.GetComponent<Transform>().lossyScale.y * 2f), Quaternion.identity) as GameObject);
-	            
+	            RopeUnitsGameObjects.Add(Instantiate(RopePrefabGameObject, ray.GetPoint(i * prefabScaleY * 2f), MainCamera.transform.rotation * Quaternion.AngleAxis(90, Vector3.right)));
 	        }
 	    }
-        Debug.DrawRay(MainCamera.transform.position, MainCamera.transform.forward * 50, Color.red);
-	    
 	}
 }
