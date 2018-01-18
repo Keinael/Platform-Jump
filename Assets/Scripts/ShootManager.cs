@@ -28,7 +28,7 @@ public class ShootManager : MonoBehaviour
 	        {
 	            PortalOrangeGameObject.SetActive(true);
 	        }
-
+            PortalOrangeGameObject.GetComponent<AudioSource>().Play();
 	        PortalOrangeGameObject.transform.position = Hit.point + Hit.normal * 0.01f;
 	        PortalOrangeGameObject.transform.rotation = Quaternion.LookRotation(Hit.normal);
 	        PortalOrangeGameObject.transform.parent = Hit.transform;
@@ -42,6 +42,7 @@ public class ShootManager : MonoBehaviour
 	            {
 	                PortalGreenGameObject.SetActive(true);
 	            }
+	            PortalGreenGameObject.GetComponent<AudioSource>().Play();
 	            PortalGreenGameObject.transform.position = Hit.point + Hit.normal * 0.01f;
 	            PortalGreenGameObject.transform.rotation = Quaternion.LookRotation(-Hit.normal);
 	            PortalGreenGameObject.transform.parent = Hit.transform;

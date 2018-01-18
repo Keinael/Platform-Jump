@@ -6,28 +6,22 @@ public class PlayerAdditionController : MonoBehaviour
     [SerializeField] private GameObject PortalGreenGameObject;
     private bool _is2Portals;
     private bool _connectedToRope;
+
 	void Update ()
 	{
-	    if (PortalOrangeGameObject.activeInHierarchy && PortalGreenGameObject.activeInHierarchy)
-	    {
-	        _is2Portals = true;
-	    }
-
-	    if (PortalOrangeGameObject.activeInHierarchy || PortalGreenGameObject.activeInHierarchy)
-	    {
-	        _is2Portals = false;
-	    }
 	    if (Input.GetKeyDown(KeyCode.E))
 	    {
 	        _connectedToRope = true;
 	    }
-
-	    if (Input.GetKeyUp(KeyCode.E))
+	    else if (Input.GetKeyUp(KeyCode.E))
 	    {
 	        _connectedToRope = false;
 	        Destroy(gameObject.GetComponent<HingeJoint>());
 	    }
-
+	    else if (PortalOrangeGameObject.activeInHierarchy && PortalGreenGameObject.activeInHierarchy)
+	    {
+	        _is2Portals = true;
+	    }
 	}
 
     private void OnCollisionEnter(Collision collision)
