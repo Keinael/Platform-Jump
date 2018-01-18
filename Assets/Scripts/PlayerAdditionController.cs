@@ -25,21 +25,19 @@ public class PlayerAdditionController : MonoBehaviour
 	    if (Input.GetKeyUp(KeyCode.E))
 	    {
 	        _connectedToRope = false;
+	        Destroy(gameObject.GetComponent<HingeJoint>());
 	    }
 
 	}
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (_connectedToRope == true && collision.gameObject.CompareTag("Rope") && !gameObject.GetComponent<ConfigurableJoint>())
+        Debug.Log("It's a collision");
+        if (_connectedToRope == true && collision.gameObject.CompareTag("Rope") && !gameObject.GetComponent<HingeJoint>())
         {
-            gameObject.AddComponent<ConfigurableJoint>().connectedBody = collision.rigidbody;
+            gameObject.AddComponent<HingeJoint>().connectedBody = collision.rigidbody;
+            gameObject.GetComponent<HingeJoint>().anchor = new Vector3(0, 1, 2);
         }
-            
-        else if (!_connectedToRope)
-        {
-            Destroy(gameObject.GetComponent<ConfigurableJoint>());
-        }  
     }
 
     private void OnTriggerEnter(Collider other)

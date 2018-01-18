@@ -21,19 +21,17 @@ public class ShootManager : MonoBehaviour
 	{
 	    var ray = new Ray(MainCamera.transform.position, MainCamera.transform.forward * 50);
 	    Physics.Raycast(ray, out Hit);
-        
-	    if (Input.GetMouseButtonDown(0))
+
+	    if (Input.GetMouseButtonDown(0) && Hit.transform.gameObject.tag == "Portal")
 	    {
-	        if (Hit.transform.gameObject.tag == "Portal")
+	        if (!PortalOrangeGameObject.activeInHierarchy)
 	        {
-	            if (!PortalOrangeGameObject.activeInHierarchy)
-	            {
-	                PortalOrangeGameObject.SetActive(true);
-	            }
-	            PortalOrangeGameObject.transform.position = Hit.point + Hit.normal * 0.01f ;
-	            PortalOrangeGameObject.transform.rotation = Quaternion.LookRotation(Hit.normal);
-	            PortalOrangeGameObject.transform.parent = Hit.transform;
+	            PortalOrangeGameObject.SetActive(true);
 	        }
+
+	        PortalOrangeGameObject.transform.position = Hit.point + Hit.normal * 0.01f;
+	        PortalOrangeGameObject.transform.rotation = Quaternion.LookRotation(Hit.normal);
+	        PortalOrangeGameObject.transform.parent = Hit.transform;
 	    }
 
 	    if (Input.GetMouseButtonDown(1))
