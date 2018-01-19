@@ -17,6 +17,7 @@ public class PlayerAdditionController : MonoBehaviour
 	    {
 	        _connectedToRope = false;
 	        Destroy(gameObject.GetComponent<HingeJoint>());
+	        gameObject.GetComponent<AudioSource>().Play();
 	    }
 	    else if (PortalOrangeGameObject.activeInHierarchy && PortalGreenGameObject.activeInHierarchy)
 	    {
@@ -29,6 +30,7 @@ public class PlayerAdditionController : MonoBehaviour
         Debug.Log("It's a collision");
         if (_connectedToRope == true && collision.gameObject.CompareTag("Rope") && !gameObject.GetComponent<HingeJoint>())
         {
+            gameObject.GetComponent<AudioSource>().Play();
             gameObject.AddComponent<HingeJoint>().connectedBody = collision.rigidbody;
             gameObject.GetComponent<HingeJoint>().anchor = new Vector3(0, 1, 2);
         }
