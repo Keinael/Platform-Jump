@@ -2,8 +2,9 @@
 
 public class PlayerAdditionController : MonoBehaviour
 {
-    [SerializeField] private GameObject PortalOrangeGameObject;
-    [SerializeField] private GameObject PortalGreenGameObject;
+    [SerializeField] private GameObject _portalOrangeGameObject;
+    [SerializeField] private GameObject _portalGreenGameObject;
+    [SerializeField] private AudioSource _audioSource;
     private bool _is2Portals;
     private bool _connectedToRope;
 
@@ -16,10 +17,12 @@ public class PlayerAdditionController : MonoBehaviour
 	    else if (Input.GetKeyUp(KeyCode.E))
 	    {
 	        _connectedToRope = false;
+
+            //Change Destroy() function with disabling game object
 	        Destroy(gameObject.GetComponent<HingeJoint>());
-	        gameObject.GetComponent<AudioSource>().Play();
+	        _audioSource.Play();
 	    }
-	    else if (PortalOrangeGameObject.activeInHierarchy && PortalGreenGameObject.activeInHierarchy)
+	    else if (_portalOrangeGameObject.activeInHierarchy && _portalGreenGameObject.activeInHierarchy)
 	    {
 	        _is2Portals = true;
 	    }
@@ -30,21 +33,21 @@ public class PlayerAdditionController : MonoBehaviour
         Debug.Log("It's a collision");
         if (_connectedToRope == true && collision.gameObject.CompareTag("Rope") && !gameObject.GetComponent<HingeJoint>())
         {
-            gameObject.GetComponent<AudioSource>().Play();
+            _audioSource.Play();
             gameObject.AddComponent<HingeJoint>().connectedBody = collision.rigidbody;
-            gameObject.GetComponent<HingeJoint>().anchor = new Vector3(0, 1, 2);
+            GetComponent<HingeJoint>().anchor = new Vector3(0, 1, 2);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == PortalOrangeGameObject && _is2Portals)
+        if (other.gameObject == _portalOrangeGameObject && _is2Portals)
         {
-            gameObject.transform.position = PortalGreenGameObject.transform.position + PortalGreenGameObject.transform.forward * -2;
+            transform.position = _portalGreenGameObject.transform.position + _portalGreenGameObject.transform.forward * -2;
         }
-        if (other.gameObject == PortalGreenGameObject && _is2Portals)
+        if (other.gameObject == _portalGreenGameObject && _is2Portals)
         {
-            gameObject.transform.position = PortalOrangeGameObject.transform.position + PortalOrangeGameObject.transform.forward * 2;
+            gameObject.transform.position = _portalOrangeGameObject.transform.position + _portalOrangeGameObject.transform.forward * 2;
         }
     }  
 }

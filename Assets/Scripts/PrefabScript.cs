@@ -2,7 +2,7 @@
 
 public class PrefabScript : MonoBehaviour
 {
-    void Awake ()
+    void OnEnable ()
     {
         var shootManager = GameObject.Find("Portal Gun").GetComponent<ShootManager>();
         gameObject.GetComponent<ConfigurableJoint>().anchor = new Vector3(0, 1, 0);

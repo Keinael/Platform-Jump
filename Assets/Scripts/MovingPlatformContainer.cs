@@ -2,18 +2,19 @@
 
 public class MovingPlatformContainer : MonoBehaviour
 {
-    [SerializeField] public float Speed;
-
+    [SerializeField] private float _speed;
+    private float startPosition = -10f;
+    private float endPosition = 10f;
 	void Update ()
 	{
-	    transform.Translate(new Vector3(0, 0, Speed * Time.deltaTime));
-	    if (transform.position.z >= 10f)
+	    transform.Translate(new Vector3(0, 0, _speed * Time.deltaTime));
+	    if (transform.position.z >= endPosition)
 	    {
-	        Speed = -Speed;
+	        _speed = -_speed;
 	    }
-	    else if (transform.position.z <= -10f)
+	    else if (transform.position.z <= startPosition)
 	    {
-	        Speed = -Speed;
+	        _speed = -_speed;
 	    }
 	}
 }
